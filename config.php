@@ -2,7 +2,7 @@
 
 
 // PHP Data Objects(PDO) Sample Code:
-
+/*
     $pdo = new PDO("sqlsrv:server = tcp:crudedbserver.database.windows.net,1433; Database = CrudeDB", "user", "pwd12%%12");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
@@ -13,7 +13,7 @@
         exit;
     }
 
-
+*/
 
 
 // SQL Server Extension Sample Code:
@@ -24,8 +24,8 @@ $conn = sqlsrv_connect($serverName, $connectionInfo);*/
 
 
 /* Attempt to connect to MySQL database */
-/*
-$connectstr_dbhost = 'crudedbserver.database.windows.net';
+
+$connectstr_dbhost = 'tcp:crudedbserver.database.windows.net,1433';
 $connectstr_dbname = 'CrudeDB';
 $connectstr_dbusername = 'user';
 $connectstr_dbpassword = 'pwd12%%12';
@@ -40,7 +40,7 @@ foreach ($_SERVER as $key => $value) {
     $connectstr_dbusername = preg_replace("/^.*User Id=(.+?);.*$/", "\\1", $value);
     $connectstr_dbpassword = preg_replace("/^.*Password=(.+?)$/", "\\1", $value);
 }
-$pdo = mysqli_connect($connectstr_dbhost, $connectstr_dbusername, $connectstr_dbpassword,$connectstr_dbname);
+$pdo = sqlsrv_connect($connectstr_dbhost, $connectstr_dbusername, $connectstr_dbpassword,$connectstr_dbname);
 if (!$pdo) {
     echo "Error: Unable to connect to MySQL." . PHP_EOL;
     echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
@@ -48,5 +48,5 @@ if (!$pdo) {
     exit;
 }
 // TODO make sure DB exists
-// TODO create table (only once, if it does not yet exist)*/
+// TODO create table (only once, if it does not yet exist)
 ?>
