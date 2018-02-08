@@ -1,19 +1,27 @@
 <?php
-
-/* Database credentials. Assuming you are running MySQL
-server with default setting (user 'root' with no password) */
-define('DB_SERVER', 'YOUR LOCATION');
-define('DB_USERNAME', 'YOUR USER NAME');
-define('DB_PASSWORD', 'YOUR PASSWORD');
-define('DB_NAME', 'YOUR DATABASE NAME');
- 
 /* Attempt to connect to MySQL database */
-try{
-    $pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
-    // Set the PDO error mode to exception
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch(PDOException $e){
-    die("ERROR: Could not connect. " . $e->getMessage());
+$connectstr_dbhost = 'crudedbserver.database.windows.net';
+$connectstr_dbname = 'CrudeDB';
+$connectstr_dbusername = 'user';
+$connectstr_dbpassword = 'pwd12%%12';
+// MS Azure does not allow direct access to MySQL configuration, only via environment
+foreach ($_SERVER as $key => $value) {
+    if (strpos($key, "MYSQLCONNSTR_localdb") !== 0) {
+        continue;
+    }
+    
+    $connectstr_dbhost = preg_replace("/^.*Data Source=(.+?);.*$/", "\\1", $value);
+    $connectstr_dbname = preg_replace("/^.*Database=(.+?);.*$/", "\\1", $value);
+    $connectstr_dbusername = preg_replace("/^.*User Id=(.+?);.*$/", "\\1", $value);
+    $connectstr_dbpassword = preg_replace("/^.*Password=(.+?)$/", "\\1", $value);
 }
-
+$pdo = mysqli_connect($connectstr_dbhost, $connectstr_dbusername, $connectstr_dbpassword,$connectstr_dbname);
+if (!$pdo) {
+    echo "Error: Unable to connect to MySQL." . PHP_EOL;
+    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+    exit;
+}
+// TODO make sure DB exists
+// TODO create table (only once, if it does not yet exist)
 ?>
