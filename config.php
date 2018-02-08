@@ -2,7 +2,7 @@
 
 
 // PHP Data Objects(PDO) Sample Code:
-try {
+
     $pdo = new PDO("sqlsrv:server = tcp:crudedbserver.database.windows.net,1433; Database = CrudeDB", "user", "pwd12%%12");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
@@ -12,11 +12,7 @@ try {
         echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
         exit;
     }
-}
-catch (PDOException $e) {
-    print("Error connecting to SQL Server.");
-    die(print_r($e));
-}
+
 
 
 
