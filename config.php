@@ -6,7 +6,7 @@
     $pdo1 = new PDO("sqlsrv:server = tcp:crudedbserver.database.windows.net,1433; Database = CrudeDB", "user", "pwd12%%12");
     $pdo1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    if (!$pdo) {
+    if (!$pdo1) {
         echo "Error: Unable to connect to MySQL." . PHP_EOL;
         echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
         echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
