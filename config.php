@@ -1,5 +1,25 @@
 <?php
+
+
+// PHP Data Objects(PDO) Sample Code:
+try {
+    $conn = new PDO("sqlsrv:server = tcp:crudedbserver.database.windows.net,1433; Database = CrudeDB", "user", "{your_password_here}");
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
+catch (PDOException $e) {
+    print("Error connecting to SQL Server.");
+    die(print_r($e));
+}
+
+// SQL Server Extension Sample Code:
+$connectionInfo = array("UID" => "user@crudedbserver", "pwd" => "pwd12%%12", "Database" => "CrudeDB", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
+$serverName = "tcp:crudedbserver.database.windows.net,1433";
+$conn = sqlsrv_connect($serverName, $connectionInfo);
+
+
+
 /* Attempt to connect to MySQL database */
+/*
 $connectstr_dbhost = 'crudedbserver.database.windows.net';
 $connectstr_dbname = 'CrudeDB';
 $connectstr_dbusername = 'user';
@@ -23,5 +43,5 @@ if (!$pdo) {
     exit;
 }
 // TODO make sure DB exists
-// TODO create table (only once, if it does not yet exist)
+// TODO create table (only once, if it does not yet exist)*/
 ?>
