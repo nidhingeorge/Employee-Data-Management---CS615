@@ -3,8 +3,8 @@
 
 // PHP Data Objects(PDO) Sample Code:
 
-    $pdo = new PDO("sqlsrv:server = tcp:crudedbserver.database.windows.net,1433; Database = CrudeDB", "user", "pwd12%%12");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo1 = new PDO("sqlsrv:server = tcp:crudedbserver.database.windows.net,1433; Database = CrudeDB", "user", "pwd12%%12");
+    $pdo1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     if (!$pdo) {
         echo "Error: Unable to connect to MySQL." . PHP_EOL;
@@ -17,9 +17,9 @@
 
 
 // SQL Server Extension Sample Code:
-/*$connectionInfo = array("UID" => "user@crudedbserver", "pwd" => "pwd12%%12", "Database" => "CrudeDB", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
+$connectionInfo = array("UID" => "user@crudedbserver", "pwd" => "pwd12%%12", "Database" => "CrudeDB", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
 $serverName = "tcp:crudedbserver.database.windows.net,1433";
-$conn = sqlsrv_connect($serverName, $connectionInfo);*/
+$pdo = sqlsrv_connect($serverName, $connectionInfo);
 
 
 
