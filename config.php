@@ -2,7 +2,7 @@
 
 
 // PHP Data Objects(PDO) Sample Code:
-/*
+
     $pdo = new PDO("sqlsrv:server = tcp:crudedbserver.database.windows.net,1433; Database = CrudeDB", "user", "pwd12%%12");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
@@ -13,7 +13,7 @@
         exit;
     }
 
-*/
+
 
 
 // SQL Server Extension Sample Code:
@@ -24,7 +24,7 @@ $conn = sqlsrv_connect($serverName, $connectionInfo);*/
 
 
 /* Attempt to connect to MySQL database */
-
+/*
 $connectstr_dbhost = 'tcp:crudedbserver.database.windows.net,1433';
 $connectstr_dbname = 'CrudeDB';
 $connectstr_dbusername = 'user';
@@ -46,7 +46,7 @@ if (!$pdo) {
     echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
     echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
     exit;
-}
+}*/
 // TODO make sure DB exists
 // TODO create table (only once, if it does not yet exist)
 ?>
