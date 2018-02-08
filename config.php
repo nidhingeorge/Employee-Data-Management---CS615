@@ -1,14 +1,13 @@
-/*
-<?php
 
-/* Database credentials. Assuming you are running MySQL
-server with default setting (user 'root' with no password) */
+/*
+
+// Database credentials. Assuming you are running MySQL server with default setting (user 'root' with no password) 
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'user');
 define('DB_PASSWORD', 'user');
 define('DB_NAME', 'user');
  
-/* Attempt to connect to MySQL database */
+// Attempt to connect to MySQL database 
 try{
     $pdo = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_NAME, DB_USERNAME, DB_PASSWORD);
     // Set the PDO error mode to exception
@@ -17,11 +16,10 @@ try{
     die("ERROR: Could not connect. " . $e->getMessage());
 }
 
-?>
-
+*/
 
 <?php
-*/
+
 
 // PHP Data Objects(PDO) Sample Code:
 
