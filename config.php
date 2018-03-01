@@ -1,11 +1,13 @@
 
-/*
+
+<?php
+
 
 // Database credentials. Assuming you are running MySQL server with default setting (user 'root' with no password) 
 define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'user');
-define('DB_PASSWORD', 'user');
-define('DB_NAME', 'user');
+define('DB_USERNAME', 'user1');
+define('DB_PASSWORD', 'test3434');
+define('DB_NAME', 'user1');
  
 // Attempt to connect to MySQL database 
 try{
@@ -16,10 +18,7 @@ try{
     die("ERROR: Could not connect. " . $e->getMessage());
 }
 
-*/
-
-<?php
-
+/*
 
 // PHP Data Objects(PDO) Sample Code:
 
@@ -39,6 +38,6 @@ try{
 // SQL Server Extension Sample Code:
 $connectionInfo = array("UID" => "user@crudedbserver", "pwd" => "pwd12%%12", "Database" => "CrudeDB", "LoginTimeout" => 30, "Encrypt" => 1, "TrustServerCertificate" => 0);
 $serverName = "tcp:crudedbserver.database.windows.net,1433";
-$pdo = sqlsrv_connect($serverName, $connectionInfo);
+$pdo = sqlsrv_connect($serverName, $connectionInfo);*/
 ?>
 

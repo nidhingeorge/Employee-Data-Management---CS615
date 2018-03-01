@@ -1,18 +1,18 @@
 <?php
 // Check existence of id parameter before processing further
-if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
+if(isset($_GET["empid"]) && !empty(trim($_GET["empid"]))){
     // Include config file
     require_once 'config.php';
     
     // Prepare a select statement
-    $sql = "SELECT * FROM employees WHERE id = :id";
+    $sql = "SELECT * FROM employees WHERE empid = :empid";
     
     if($stmt = $pdo->prepare($sql)){
         // Bind variables to the prepared statement as parameters
-        $stmt->bindParam(':id', $param_id);
+        $stmt->bindParam(':empid', $param_empid);
         
         // Set parameters
-        $param_id = trim($_GET["id"]);
+        $param_empid = trim($_GET["empid"]);
         
         // Attempt to execute the prepared statement
         if($stmt->execute()){
@@ -25,6 +25,7 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
                 $name = $row["name"];
                 $address = $row["address"];
                 $salary = $row["salary"];
+                $empid = $row["empid"];
             } else{
                 // URL doesn't contain valid id parameter. Redirect to error page
                 header("location: error.php");
@@ -53,20 +54,59 @@ if(isset($_GET["id"]) && !empty(trim($_GET["id"]))){
     <meta charset="UTF-8">
     <title>View Record</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
     <style type="text/css">
-        .wrapper{
-            width: 500px;
-            margin: 0 auto;
-        }
+    
+      .container-fluid{
+        margin-left:0;
+        width:100%;
+        height:100%
+      }
+      .wrapper{
+        height:100%;
+      }
+    html { height: 100%; } body { min-height: 100%; height:100vh;}
+    </style>
+    <style type="text/css">
+      
     </style>
 </head>
 <body>
     <div class="wrapper">
+      <!-- Sidebar Holder -->
+           <nav id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Employee Data Management</h3>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <li class="active">
+                        <a href="index.php">Overview</a>
+                        
+                    </li>    
+                   <li>
+                        <a href="create.php">Add Employee</a>
+                        
+                    </li>
+                    <li>
+                        <a href="dataupload.php">Data Upload</a>
+                    </li>
+                  
+                </ul>
+
+                
+            </nav>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">
                         <h1>View Record</h1>
+                    </div>
+                   <div class="form-group">
+                        <label>Employee Id</label>
+                        <p class="form-control-static"><?php echo $row["empid"]; ?></p>
                     </div>
                     <div class="form-group">
                         <label>Name</label>
