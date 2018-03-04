@@ -30,41 +30,50 @@
 
 					 header("location: index.php");
 				}else {
-					 $error = "Your Username or Password is invalid. If you have already registered, please check your company email.";
+					 $error = "Your Username or Password is invalid!";
 				}
+				
+				// Close statement
+    		unset($sql);
+				//Close the connection
+				unset($pdo);
 		 }
    }
 ?>
 <html>
    
    <head>
-      <title>Login Page</title>
+      <title>Employee Data Management  - Login</title>
       
 
    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-
+<link rel="stylesheet" href="style.css">
 <style>
 
 body {
-    background: url(http://habrastorage.org/files/c9c/191/f22/c9c191f226c643eabcce6debfe76049d.jpg);
+    background: url("bg.png") no-repeat center center fixed; 
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
 }
 
 .jumbotron {
 	text-align: center;
 	width: 30rem;
 	border-radius: 0.5rem;
-	right: 0;
+	right: 250;
 	top: 150;
   bottom: 0;
-  left: 550;
+  
 	position: absolute;
 	margin: 4rem auto;
 	background-color: #fff;
 	padding: 2rem;
-	height: 500;
+	height: 520;
 }
 
 .container .glyphicon-user {
@@ -122,7 +131,9 @@ h2 {
    <body bgcolor = "#FFFFFF">
 	
       
-
+ <div class="sidebar-header" style="font-size:72; color:#ffffff;margin-top: 200px;margin-left: 100px;" width="250px">
+		Employee <br>Data<br> Management
+</div>
 
 <div class="jumbotron">
   <div class="container">
@@ -134,8 +145,11 @@ h2 {
 	    <input type="password" placeholder="password" name = "password">
 	    <button class="btn btn-default full-width" type="submit"><span class="glyphicon glyphicon-ok"></span></button>
 				</form>
+			
+			
+		<a href="createuser.php" class="btn btn-default full-width" style="background-color: #71c5a5; font-weight:bold;" >Create New User</a>
+		<a href="resetuserpwd.php" class="btn btn-default full-width" style="background-color: #a28b64; font-weight:bold;" >Reset Password</a>
 			<div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
-			<button class="btn btn-default full-width" style="background-color: #8064A2" >Create New User</span></button>
     </div>
   </div>
 </div>

@@ -9,8 +9,8 @@
    </head>
    
    <body>
-     <p align="right">
-       <?php echo $login_session; ?> <a href = "logout.php">Sign Out</a>  </p>
+     <p align="right" >
+       <?php echo "<span style='color:#445082; font-weight: bold'>". $login_session . "</span>";?> &nbsp; <a href = "logout.php">Logout</a>  </p>
    </body>
    
 </html>

@@ -3,8 +3,8 @@
 require_once 'config.php';
  
 // Define variables and initialize with empty values
-$name = $address = $salary = $empid = "";
-$name_err = $address_err = $salary_err = $empid_err = $db_err = "";
+$name = $address = $salary = $empid = $role = "";
+$name_err = $address_err = $salary_err = $empid_err = $db_err = $role_err = "";
  
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -24,6 +24,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $address_err = 'Please enter an address.';     
     } else{
         $address = $input_address;
+    }
+  
+   // Validate role
+    $input_role = trim($_POST["role"]);
+    if(empty($input_role)){
+        $role_err = 'Please enter an valid role.';     
+    } else{
+        $role = $input_role;
     }
     
     // Validate salary
@@ -49,20 +57,22 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check input errors before inserting in database
     if(empty($name_err) && empty($address_err) && empty($salary_err) && empty($empid_err)){
         // Prepare an insert statement
-        $sql = "INSERT INTO employees (empid, name, address, salary) VALUES (:empid, :name, :address, :salary)";
+        $sql = "INSERT INTO employees (empid, name, address, salary, role) VALUES (:empid, :name, :address, :salary, :role)";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
             $stmt->bindParam(':name', $param_name);
             $stmt->bindParam(':address', $param_address);
             $stmt->bindParam(':salary', $param_salary);
-          $stmt->bindParam(':empid', $param_empid);
+            $stmt->bindParam(':empid', $param_empid);
+            $stmt->bindParam(':role', $param_role);
             
             // Set parameters
             $param_name = $name;
             $param_address = $address;
             $param_salary = $salary;
             $param_empid = $empid;
+            $param_role = $role;
             
         
 
@@ -120,7 +130,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       <!-- Sidebar Holder -->
            <nav id="sidebar">
                 <div class="sidebar-header">
-                    <h3>Employee Data Management</h3>
+                  <a href='index.php'> <h3>Employee Data Management</h3></a>
                 </div>
 
                 <ul class="list-unstyled components">
@@ -158,6 +168,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <input type="text" name="name" class="form-control" value="<?php echo $name; ?>">
                             <span class="help-block"><?php echo $name_err;?></span>
                         </div>
+                      <div class="form-group <?php echo (!empty($role_err)) ? 'has-error' : ''; ?>">
+                            <label>Role</label>
+                            <input type="text" name="role" class="form-control" value="<?php echo $role; ?>">
+                            <span class="help-block"><?php echo $role_err;?></span>
+                        </div>
                         <div class="form-group <?php echo (!empty($address_err)) ? 'has-error' : ''; ?>">
                             <label>Address</label>
                             <textarea name="address" class="form-control"><?php echo $address; ?></textarea>
@@ -168,7 +183,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <input type="text" name="salary" class="form-control" value="<?php echo $salary; ?>">
                             <span class="help-block"><?php echo $salary_err;?></span>
                         </div>
-                        <input type="submit" class="btn btn-primary" value="Submit">
+                        <input type="submit" class="btn btn-primary" style="background-color: #1f3f562" value="Submit">
                         <a href="index.php" class="btn btn-default">Cancel</a>
                        <span class="help-block"><?php echo $db_err;?></span>
                     </form>

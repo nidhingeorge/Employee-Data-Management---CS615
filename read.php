@@ -26,6 +26,7 @@ if(isset($_GET["empid"]) && !empty(trim($_GET["empid"]))){
                 $address = $row["address"];
                 $salary = $row["salary"];
                 $empid = $row["empid"];
+                $role = $row["role"];
             } else{
                 // URL doesn't contain valid id parameter. Redirect to error page
                 header("location: error.php");
@@ -78,7 +79,7 @@ if(isset($_GET["empid"]) && !empty(trim($_GET["empid"]))){
       <!-- Sidebar Holder -->
            <nav id="sidebar">
                 <div class="sidebar-header">
-                    <h3>Employee Data Management</h3>
+                   <a href='index.php'> <h3>Employee Data Management</h3></a>
                 </div>
 
                 <ul class="list-unstyled components">
@@ -111,6 +112,10 @@ if(isset($_GET["empid"]) && !empty(trim($_GET["empid"]))){
                     <div class="form-group">
                         <label>Name</label>
                         <p class="form-control-static"><?php echo $row["name"]; ?></p>
+                    </div>
+                   <div class="form-group">
+                        <label>Role</label>
+                        <p class="form-control-static"><?php echo $row["role"]; ?></p>
                     </div>
                     <div class="form-group">
                         <label>Address</label>

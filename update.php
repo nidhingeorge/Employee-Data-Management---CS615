@@ -3,8 +3,8 @@
 require_once 'config.php';
  
 // Define variables and initialize with empty values
-$name = $address = $salary = "";
-$name_err = $address_err = $salary_err = "";
+$name = $address = $salary = $empid = $role = "";
+$name_err = $address_err = $salary_err = $empid_err = $db_err = $role_err = "";
  
 // Processing form data when form is submitted
 if(isset($_POST["empid"]) && !empty($_POST["empid"])){
@@ -39,6 +39,7 @@ if(isset($_POST["empid"]) && !empty($_POST["empid"])){
         $salary = $input_salary;
     }
     
+  // Validate employee id
    $input_empid = trim($_POST["empid"]);
     if(empty($input_salary)){
         $empid_err = "Please enter the Employee Id.";     
@@ -48,10 +49,19 @@ if(isset($_POST["empid"]) && !empty($_POST["empid"])){
         $empid = $input_empid;
     }
   
+   // Validate role
+    $input_role = trim($_POST["role"]);
+    if(empty($input_role)){
+        $role_err = 'Please enter an valid role.';     
+    } else{
+        $role = $input_role;
+    }
+    
+  
     // Check input errors before inserting in database
-    if(empty($name_err) && empty($address_err) && empty($salary_err) && empty($empid_err)){
+    if(empty($name_err) && empty($address_err) && empty($salary_err) && empty($empid_err) && empty($role_err)){
         // Prepare an insert statement
-        $sql = "UPDATE employees SET name=:name, address=:address, salary=:salary WHERE empid=:empid";
+        $sql = "UPDATE employees SET name=:name, address=:address, salary=:salary, role=:role WHERE empid=:empid";
  
         if($stmt = $pdo->prepare($sql)){
             // Bind variables to the prepared statement as parameters
@@ -59,14 +69,14 @@ if(isset($_POST["empid"]) && !empty($_POST["empid"])){
             $stmt->bindParam(':address', $param_address);
             $stmt->bindParam(':salary', $param_salary);
             $stmt->bindParam(':empid', $param_empid);
-           //$stmt->bindParam(':id', $param_id);
+            $stmt->bindParam(':role', $param_role);
             
             // Set parameters
             $param_name = $name;
             $param_address = $address;
             $param_salary = $salary;
             $param_empid = $empid;
-            $param_id = $id;
+            $param_role = $role;
             
             // Attempt to execute the prepared statement
             if($stmt->execute()){
@@ -110,6 +120,7 @@ if(isset($_POST["empid"]) && !empty($_POST["empid"])){
                     $name = $row["name"];
                     $address = $row["address"];
                     $salary = $row["salary"];
+                    $role = $row["role"];
                 } else{
                     // URL doesn't contain valid id. Redirect to error page
                     header("location: error.php");
@@ -122,7 +133,7 @@ if(isset($_POST["empid"]) && !empty($_POST["empid"])){
         }
         
         // Close statement
-        unset($stmt);
+        unset($sql);
         
         // Close connection
         unset($pdo);
@@ -164,7 +175,7 @@ if(isset($_POST["empid"]) && !empty($_POST["empid"])){
        <!-- Sidebar Holder -->
            <nav id="sidebar">
                 <div class="sidebar-header">
-                    <h3>Employee Data Management</h3>
+                    <a href='index.php'> <h3>Employee Data Management</h3></a>
                 </div>
 
                 <ul class="list-unstyled components">
@@ -196,6 +207,11 @@ if(isset($_POST["empid"]) && !empty($_POST["empid"])){
                             <label>Name</label>
                             <input type="text" name="name" class="form-control" value="<?php echo $name; ?>">
                             <span class="help-block"><?php echo $name_err;?></span>
+                        </div>
+                          <div class="form-group <?php echo (!empty($role_err)) ? 'has-error' : ''; ?>">
+                            <label>Role</label>
+                            <input type="text" name="role" class="form-control" value="<?php echo $role; ?>">
+                            <span class="help-block"><?php echo $role_err;?></span>
                         </div>
                         <div class="form-group <?php echo (!empty($address_err)) ? 'has-error' : ''; ?>">
                             <label>Address</label>
