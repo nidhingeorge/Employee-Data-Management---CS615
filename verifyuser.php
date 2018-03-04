@@ -17,7 +17,7 @@
      else{           
                // Dmain is valid
         
-              $sql = "SELECT email FROM userdb WHERE username = '$username' and code= '$code'";
+              $sql = "SELECT email FROM userdb WHERE username = '$username' and code= '$code' and active='0'";
               /*$result = mysqli_query($pdo,$sql);
               $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
               $active = $row['active'];*/
