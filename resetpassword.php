@@ -137,6 +137,7 @@ body {
 	background-color: #fff;
 	padding: 2rem;
 	height: 520;
+	left:750;
 }
 
 .container .glyphicon-user {

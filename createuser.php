@@ -166,6 +166,7 @@ body {
 	background-color: #fff;
 	padding: 2rem;
 	height: 520;
+	left:750;
 }
 
 .container .glyphicon-user {
@@ -233,7 +234,7 @@ h2 {
     <h2>Create User</h2>
     <div class="box">
 			<form action = "" method = "post">
-        <input type="text" placeholder="email (@gmail.com or @mumail.ie)" name = "email">
+        <input type="text" placeholder="email (gmail or mumail id)" name = "email">
         <input type="text" placeholder="username" name = "username">
 	    <input type="password" placeholder="password" name = "password">
 	    <button class="btn btn-default full-width" type="submit"><span class="glyphicon glyphicon-ok"></span></button>
