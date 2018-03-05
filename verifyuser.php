@@ -56,7 +56,7 @@
 <html>
    
    <head>
-      <title>Create User</title>
+      <title>Verify User</title>
       
 
    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -67,7 +67,7 @@
 <style>
 
 body {
-    background: url("bg.png") no-repeat center center fixed; 
+    background: url("resorces/bg.png") no-repeat center center fixed; 
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -143,7 +143,7 @@ h2 {
    
    <body bgcolor = "#FFFFFF">
 	
-  <div class="sidebar-header" style="font-size:72; color:#ffffff;margin-top: 200px;margin-left: 100px;" width="250px">
+  <div class="sidebar-header" style="font-weight:bold; font-size:72; color:#ffffff;margin-top: 200px;margin-left: 100px;" width="250px">
     <a href='login.php'> Employee <br>Data<br> Management </a>
 </div>     
 

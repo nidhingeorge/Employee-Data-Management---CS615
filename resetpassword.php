@@ -6,15 +6,13 @@
       // username and password sent from form 
      
 		
-      $username = $_POST['username'];
-      $password = $_POST['password']; 
       $email = $_POST['email']; 
 
       $allowed = array('mumail.ie', 'gmail.com');
 
       // Validate input fields
-      if(empty($username) || empty($password) || empty($email)){
-          $info = 'Please enter all values.';     
+      if(empty($email)){
+          $info = 'Please enter the email address!';     
       } 
       else{
 
@@ -31,7 +29,7 @@
 
                  // Dmain is valid
 
-                $sql = "SELECT email FROM userdb WHERE email = '$email'";
+                $sql = "SELECT email FROM userdb WHERE email = '$email' and active='1'";
                 /*$result = mysqli_query($pdo,$sql);
                 $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
                 $active = $row['active'];*/
@@ -44,39 +42,12 @@
 
                 // If result matched $email, table row must be 1 row
 
-                if($count>0) {
+                if($count == 1) 
+								{
 
-                  $info = "Entered email address is already registered. Please try to login or reset password.";
-
-                  // Close statement
-                  unset($stmt);
-
-                }else {
-
-                      $sql = "SELECT username FROM userdb WHERE username = '$username'";
-                    /*$result = mysqli_query($pdo,$sql);
-                    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-                    $active = $row['active'];*/
-
-                    $result = $pdo->query($sql);
-
-
-                    //$count = mysqli_num_rows($result);
-                     $count = $result->rowCount();
-
-                    // If result matched $email, table row must be 1 row
-
-                    if($count > 0) {
-
-                      $info = "Entered username is already registered!";
-
-                      // Close statement
-                      unset($sql);
-
-                    }
-                    else {
+                   
                        $code = random_int ( 10000 , 100000 );
-                       $sql = "INSERT INTO `userdb`(`username`, `password`, `active`, `email`, `code`) VALUES ('$username','$password','0','$email','$code')";
+                       $sql = "UPDATE `userdb` SET code='$code' WHERE email='$email'";
                        $result = $pdo->query($sql);
 
 
@@ -101,21 +72,21 @@
                       $mail->isHTML(true);  // Set email format to HTML
 
                       $bodyContent = '<h1>Account Creation</h1>';
-                      $bodyContent .= '<p>Click on the below link to activate your account: </p>';
-                      $bodyContent .= '<a href=http://'.$urladdr.'/verifyuser.php?username='.$username.'&code='.$code.'> Verify Email </a>';
+                      $bodyContent .= '<p>Click on the below link to reset our password: </p>';
+                      $bodyContent .= '<a href=http://'.$urladdr.'/newpassword.php?email='.$email.'&code='.$code.'> Verify Email </a>';
                       //echo $urladdr.'/verifyuser.php?username='.$username.'&code='.$code;
 
-                      $mail->Subject = 'Verify Email';
+                      $mail->Subject = 'Employe Data Management - Reset Password';
                       $mail->Body    = $bodyContent;
 
                       if(!$mail->send()) {
 
                           error_log('Mailer Error: ' . $mail->ErrorInfo, 0);
                       }   
-                      else {
+                      /*else {
                         $info = "Please check your email for verification link.";
-                      }
-                  }
+                      }*/
+                  
                   // Close statement
                   unset($sql);
                 }
@@ -135,7 +106,7 @@
 <html>
    
    <head>
-      <title>Create User</title>
+      <title>Reset Password</title>
       
 
    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -226,21 +197,30 @@ h2 {
     <a href='login.php'> Employee <br>Data<br> Management </a>
 </div>         
 
-
-<div class="jumbotron">
-  <div class="container">
-    <span class="glyphicon glyphicon-user"></span>
-    <h2>Create User</h2>
-    <div class="box">
-			<form action = "" method = "post">
-        <input type="text" placeholder="email (@gmail.com or @mumail.ie)" name = "email">
-        <input type="text" placeholder="username" name = "username">
-	    <input type="password" placeholder="password" name = "password">
-	    <button class="btn btn-default full-width" type="submit"><span class="glyphicon glyphicon-ok"></span></button>
-				</form>
-      <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $info; ?></div>
-    </div>
-  </div>
-</div>
+<?php
+		 
+		 if($_SERVER["REQUEST_METHOD"] == "POST") { 
+			 
+			 echo '<div style = "font-size:20px; color:#ffffff; margin-top:10px; margin-left: 100px;">If the email is associated with a user account, you will receive a Reset Password link.</div>';
+			 
+		 }
+		 
+		 else {
+			echo '<div class="jumbotron">';
+  		echo '<div class="container">';
+    	echo '<span class="glyphicon glyphicon-user"></span>';
+    	echo '<h2>Reset Password</h2>';
+   	 	echo '<div class="box">';
+			echo '<form action = "" method = "post">';
+      echo '  <input type="text" placeholder="email (gmail or mumail id)" name = "email">';
+	    echo '<button class="btn btn-default full-width" type="submit"><span class="glyphicon glyphicon-ok"></span></button>';
+			echo '	</form>';
+      echo '<div style = "font-size:11px; color:#cc0000; margin-top:10px">';
+      echo $info; 
+      echo '</div>';
+    echo '</div>';
+  echo '</div>';
+echo '</div>';
+}?>
    </body>
 </html>

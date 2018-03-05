@@ -37,7 +37,7 @@
 
                 <ul class="list-unstyled components">
                     <li>
-                        <a href="index.php">Overview</a>
+                        <a href="index.php">Dashboard</a>
                         
                     </li>    
                    <li>
@@ -63,7 +63,7 @@
 <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
 
 <tr>
-  Load data from CSV file.  
+  Load data from CSV file. <span>You will receive an email once the data load is complete.</span> <br><br>Download the Template <a href="/resources/dataloadtemplate.csv" download> here.</a><br><br>
   </tr>
  <tr height = 20px></tr>
 <tr>
@@ -74,7 +74,7 @@
     </td>
 </label>
 </tr>
-
+       <tr><td><br></td></tr>
 <tr>
 <td></td>
 <td> <label class="btn btn-default btn-file">Submit<input type="submit" style="display: none;"  name="submit" /></td></label>
@@ -83,7 +83,7 @@
 </form>
 </table>
   <br>
-<span>You will receive an email once the data load is complete.</span>
+
       </div>
   </div>
   </body>

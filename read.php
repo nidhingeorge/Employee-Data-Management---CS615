@@ -84,7 +84,7 @@ if(isset($_GET["empid"]) && !empty(trim($_GET["empid"]))){
 
                 <ul class="list-unstyled components">
                     <li class="active">
-                        <a href="index.php">Overview</a>
+                        <a href="index.php">Dashboard</a>
                         
                     </li>    
                    <li>

@@ -47,14 +47,16 @@
       
 
    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+		 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+
 
 <link rel="stylesheet" href="style.css">
 <style>
 
 body {
-    background: url("bg.png") no-repeat center center fixed; 
+    background: url("resources/bg.png") no-repeat center center fixed; 
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -131,7 +133,7 @@ h2 {
    <body bgcolor = "#FFFFFF">
 	
       
- <div class="sidebar-header" style="font-size:72; color:#ffffff;margin-top: 200px;margin-left: 100px;" width="250px">
+ <div class="sidebar-header" style="font-weight:bold; font-size:72; color:#ffffff;margin-top: 200px;margin-left: 100px;" width="250px">
 		Employee <br>Data<br> Management
 </div>
 
@@ -148,7 +150,7 @@ h2 {
 			
 			
 		<a href="createuser.php" class="btn btn-default full-width" style="background-color: #71c5a5; font-weight:bold;" >Create New User</a>
-		<a href="resetuserpwd.php" class="btn btn-default full-width" style="background-color: #a28b64; font-weight:bold;" >Reset Password</a>
+		<a href="resetpassword.php" class="btn btn-default full-width" style="background-color: #a28b64; font-weight:bold;" >Reset Password</a>
 			<div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
     </div>
   </div>

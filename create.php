@@ -135,7 +135,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                 <ul class="list-unstyled components">
                     <li>
-                        <a href="index.php">Overview</a>
+                        <a href="index.php">Dashboard</a>
                         
                     </li>    
                    <li class="active">
