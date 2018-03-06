@@ -1,18 +1,27 @@
 <?php
+//PHP file for entering new password during Reset Password process
+
    include("config.php");
+	
+	//Including apppaths.php to access applicaton url
    include("apppaths.php");
    $info= "";
    $resetFlag = false;
+
+	//Code to handle the first time loading when arriving from email link
    if($_SERVER["REQUEST_METHOD"] == "GET") {
-      // username and password sent from form 
+      // email and code sent from URL 
      
       $email = $_GET['email']; 
       $code = $_GET['code']; 
+		 //Checking for empty email and code in the url
       if(empty($email) || empty($code)){
-        $info = 'Invalid Request. Please try again.1';
+        $info = 'Invalid Request. Please try again.';
       }
      
    }
+
+//Code to handle the POST request containing the new password
     if($_SERVER["REQUEST_METHOD"] == "POST") {
       
       
@@ -22,17 +31,20 @@
       $password = $_POST['password']; 
       
       // Validate input fields
+			//Check for empty password fields
       if(empty($verifypassword) || empty($password)){
           $info = 'Please enter all values in all fields.';     
       } 
+			//Check for empty email and unique code
       else if(empty($email) || empty($code)){
-        $info = 'Invalid Request. Please try again.2';
+        $info = 'Invalid Request. Please try again.';
       }
+			//Check if passwords are matching
       else if(!($verifypassword === $password)){
         $info = "Passwords don't match!";
       }
       else {
-        
+        			//Query to search for user in db
         
               $sql = "SELECT email FROM userdb WHERE email = '$email' and code= '$code'";
               $result = $pdo->query($sql);
@@ -41,18 +53,20 @@
               // If result matched $email, table row must be 1 row
 
               if($count == 0) {
-
+								//No user available with the email address
                 $info = "Invalid Request! ";
 
                 // Close statement
                 unset($sql);
 
               }else if($count == 1){
-                
+                //User account exists in db
                  $sql = "UPDATE `userdb` SET `password`='$password' WHERE email='$email'";
                
+								//Updating the password
                  $result = $pdo->query($sql);   
                 
+								//Setting the info message
                  $info = "Password has been reset! Click here to <a href='login.php'> Login </a>.";
                  $resetFlag = true;
                 // Close statement
@@ -163,6 +177,7 @@ h2 {
 
 <?php
 		 
+		 //PHP code to show the info message after user submits the new password
 		 if($_SERVER["REQUEST_METHOD"] == "POST" && $resetFlag) { 
 			 
 			 echo '<div style = "font-size:20px; color:#ffffff; margin-top:10px; margin-left: 100px;">';
@@ -171,6 +186,7 @@ h2 {
 			 
 		 }
 		 
+		 //PHP code to show the input fields on initial page load
 		 else if($_SERVER["REQUEST_METHOD"] == "GET"){
         echo '<div class="jumbotron">';
         echo '<div class="container">';

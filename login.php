@@ -1,35 +1,36 @@
+
 <?php
+	//PHP file for login page
    include("config.php");
    session_start();
    $error= "";
    if($_SERVER["REQUEST_METHOD"] == "POST") {
-      // username and password sent from form 
+      // Getting the username and password sent from form 
      
 		
       $myusername = $_POST['username'];
       $mypassword = $_POST['password']; 
       
+		 //Checking whether the entered values are string
 		  if(is_string($myusername) && is_string($mypassword)) {
+				//Creating the sql query - criteria checks whether user is activated ot not
 				$sql = "SELECT id FROM userdb WHERE username = '$myusername' and password = '$mypassword' and active='1'";
-				/*$result = mysqli_query($pdo,$sql);
-				$row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-				$active = $row['active'];*/
 
 			 $result = $pdo->query($sql);
 
-
-				//$count = mysqli_num_rows($result);
 				 $count = $result->rowCount();
 
-				// If result matched $myusername and $mypassword, table row must be 1 row
+				// If result matched $myusername and $mypassword and active=1, count must be 1
 
 				if($count == 1) {
+					//Setting the session variables
 					 $_SESSION['myusername']="myusername";
 					 //session_register("myusername");
 					 $_SESSION['login_user'] = $myusername;
 
 					 header("location: index.php");
 				}else {
+					//Error message
 					 $error = "Your Username or Password is invalid!";
 				}
 				
@@ -106,7 +107,18 @@ h2 {
 	color: #fff;
 }
 .full-width {
-	background-color: #8eb5e2;
+	background-color: #425a75;
+	width: 100%;
+	-webkit-border-top-right-radius: 0;
+	-webkit-border-bottom-right-radius: 0;
+	-moz-border-radius-topright: 0;
+	-moz-border-radius-bottomright: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+	
+.full-width:hover {
+	background-color: #7ca5d4;
 	width: 100%;
 	-webkit-border-top-right-radius: 0;
 	-webkit-border-bottom-right-radius: 0;

@@ -55,7 +55,10 @@
        
    
    <div class="container-fluid">
-           <?php include('welcome.php'); ?>
+     
+           <?php 
+            //Including the config and user info
+            include('welcome.php'); ?>
             <div class="row">
                 <div class="col-md-12">
                  
@@ -71,7 +74,10 @@
                     // Attempt select query execution
                     $sql = "SELECT * FROM employees";
                     if($result = $pdo->query($sql)){
+                      //Checking for the number of rows retrieved
                         if($result->rowCount() > 0){
+                          //Outputting html tags using echo
+                          //Creating an html table
                             echo "<table class='table table-bordered table-striped'>";
                                 echo "<thead>";
                                     echo "<tr>";
@@ -85,6 +91,8 @@
                                     echo "</tr>";
                                 echo "</thead>";
                                 echo "<tbody>";
+                          //Iterating through db results
+                          //Creating table rows
                                 while($row = $result->fetch()){
                                     echo "<tr>";
                                         //echo "<td>" . $row['id'] . "</td>";
@@ -94,6 +102,7 @@
                                         echo "<td>" . $row['address'] . "</td>";
                                         echo "<td>" . $row['salary'] . "</td>";
                                         echo "<td>";
+                                  //Creating action links - Passes unique employee id as the parameter
                                             echo "<a href='read.php?empid=". $row['empid'] ."' title='View Record' data-toggle='tooltip'><span class='glyphicon glyphicon-eye-open'></span></a> &nbsp;&nbsp;";
                                             echo "<a href='update.php?empid=". $row['empid'] ."' title='Update Record' data-toggle='tooltip'><span class='glyphicon glyphicon-pencil'></span></a> &nbsp;&nbsp;";
                                             echo "<a href='delete.php?empid=". $row['empid'] ."' title='Delete Record' data-toggle='tooltip'><span class='glyphicon glyphicon-trash'></span></a>";

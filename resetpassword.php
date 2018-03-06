@@ -1,13 +1,18 @@
 <?php
+//PHP file to handle the Reset Password request
+
+//Including the config file
    include("config.php");
+//Including the apppaths.php file to fetch application url
    include("apppaths.php");
+
    $info= "";
    if($_SERVER["REQUEST_METHOD"] == "POST") {
-      // username and password sent from form 
-     
+      // email sent from form 
 		
-      $email = $_POST['email']; 
-
+      $email = $_POST['email'];
+		 
+		 //Array to hold allowed email domains
       $allowed = array('mumail.ie', 'gmail.com');
 
       // Validate input fields
@@ -16,9 +21,11 @@
       } 
       else{
 
-
+				//email field is not empty
+				
+				//Checking for valid email id string
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        // Valid emailaddress
+        // Valid email address
 
           $explodedEmail = explode('@', $email);
           $domain = array_pop($explodedEmail);
@@ -27,30 +34,24 @@
           if (in_array($domain, $allowed))
           {
 
-                 // Dmain is valid
+                 // Domain is valid
 
                 $sql = "SELECT email FROM userdb WHERE email = '$email' and active='1'";
-                /*$result = mysqli_query($pdo,$sql);
-                $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-                $active = $row['active'];*/
 
                 $result = $pdo->query($sql);
 
-
-                //$count = mysqli_num_rows($result);
                  $count = $result->rowCount();
 
-                // If result matched $email, table row must be 1 row
+                // If result matched $email, count must be 1.
 
                 if($count == 1) 
 								{
-
-                   
+                   	//Generating random code to include in the reset password link and also insert in the db
                        $code = random_int ( 10000 , 100000 );
                        $sql = "UPDATE `userdb` SET code='$code' WHERE email='$email'";
                        $result = $pdo->query($sql);
 
-
+										//Adding PHPMailer framework fr sending emails
                       require 'PHPMailer/PHPMailerAutoload.php';
 
                       $mail = new PHPMailer;
@@ -59,18 +60,19 @@
                       $mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP servers
                       $mail->SMTPAuth = true;                     // Enable SMTP authentication
                       $mail->Username = 'nidgtest@gmail.com';          // SMTP username
-                      $mail->Password = 'hunan12%%'; // SMTP password
+                      $mail->Password = 'qmayvhyqykbgdlic'; // SMTP password
                       $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
                       $mail->Port = 587;                          // TCP port to connect to
 
                       $mail->setFrom('nidgtest@gmail.com', 'Employee Data Management');
                       $mail->addReplyTo('nidgtest@gmail.com', 'Employee Data Management');
-                      $mail->addAddress('nidhin.george.2018@mumail.ie');   // Add a recipient
+                      $mail->addAddress($email);   // Add a recipient
                       //$mail->addCC('cc@example.com');
                       $mail->addBCC('nidgtest@gmail.com');
 
                       $mail->isHTML(true);  // Set email format to HTML
 
+									//Constructing the html email body content
                       $bodyContent = '<h1>Account Creation</h1>';
                       $bodyContent .= '<p>Click on the below link to reset our password: </p>';
                       $bodyContent .= '<a href=http://'.$urladdr.'/newpassword.php?email='.$email.'&code='.$code.'> Verify Email </a>';
@@ -79,6 +81,7 @@
                       $mail->Subject = 'Employe Data Management - Reset Password';
                       $mail->Body    = $bodyContent;
 
+									//Sending the email
                       if(!$mail->send()) {
 
                           error_log('Mailer Error: ' . $mail->ErrorInfo, 0);
@@ -200,12 +203,14 @@ h2 {
 
 <?php
 		 
+		 //PHP code to handle the page content after user submits the email
 		 if($_SERVER["REQUEST_METHOD"] == "POST") { 
 			 
 			 echo '<div style = "font-size:20px; color:#ffffff; margin-top:10px; margin-left: 100px;">If the email is associated with a user account, you will receive a Reset Password link.</div>';
 			 
 		 }
 		 
+		 //PHP code to handle the page content when Reset Password page is loaded initially - Contains input field for email
 		 else {
 			echo '<div class="jumbotron">';
   		echo '<div class="container">';

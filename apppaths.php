@@ -16,7 +16,5 @@ if ($urladdr{strlen($urladdr) - 1}== '/')
     define('URLADDR', 'http://' . $urladdr);
 else
     define('URLADDR', 'http://' . $urladdr . '/');
-
-//unset($tempPath1, $tempPath2, $tempPath3, $urladdr);
                                                     
 ?>

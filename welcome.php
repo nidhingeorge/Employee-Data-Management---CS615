@@ -1,4 +1,7 @@
 <?php
+//PHP file for showing username and logout button 
+
+//Including the seesion related code
    include('session.php');
 
 ?>

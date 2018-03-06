@@ -1,8 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Record</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <style type="text/css">
+        .wrapper{
+            width: 500px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container-fluid">
+          
+<?php 
+          //Including the config and user info
+          include('welcome.php'); ?>
 <?php
 // Process delete operation after confirmation
 if(isset($_POST["empid"]) && !empty($_POST["empid"])){
-    // Include config file
-    require_once 'config.php';
+
     
     // Prepare a select statement
     $sql = "DELETE FROM employees WHERE empid = :empid";
@@ -37,23 +57,7 @@ if(isset($_POST["empid"]) && !empty($_POST["empid"])){
         exit();
     }
 }
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>View Record</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <style type="text/css">
-        .wrapper{
-            width: 500px;
-            margin: 0 auto;
-        }
-    </style>
-</head>
-<body>
-    <div class="wrapper">
-        <div class="container-fluid">
+?>          
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">

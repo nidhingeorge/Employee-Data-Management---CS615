@@ -1,7 +1,12 @@
 <?php
+	// PHP file used to create a new user
+
+ // Include the dependent php files
    include("config.php");
    include("apppaths.php");
    $info= "";
+
+	//Check if the http request is POST
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       // username and password sent from form 
      
@@ -10,6 +15,7 @@
       $password = $_POST['password']; 
       $email = $_POST['email']; 
 
+		 //Array to hold domain names of allowed email addresses
       $allowed = array('mumail.ie', 'gmail.com');
 
       // Validate input fields
@@ -17,25 +23,22 @@
           $info = 'Please enter all values.';     
       } 
       else{
+				//All values are available
 
-
+				//Checking for valid email address string
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        // Valid emailaddress
+        	// Valid email address
 
           $explodedEmail = explode('@', $email);
           $domain = array_pop($explodedEmail);
 
-          //If valid email address with proper domain address
+          //Checking for valid email address with proper domain address
           if (in_array($domain, $allowed))
           {
 
-                 // Dmain is valid
-
+                 // Domain is valid
+								// 
                 $sql = "SELECT email FROM userdb WHERE email = '$email'";
-                /*$result = mysqli_query($pdo,$sql);
-                $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-                $active = $row['active'];*/
-
                 $result = $pdo->query($sql);
 
 
@@ -53,18 +56,12 @@
 
                 }else {
 
-                      $sql = "SELECT username FROM userdb WHERE username = '$username'";
-                    /*$result = mysqli_query($pdo,$sql);
-                    $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-                    $active = $row['active'];*/
-
+                    $sql = "SELECT username FROM userdb WHERE username = '$username'";
                     $result = $pdo->query($sql);
 
+                    $count = $result->rowCount();
 
-                    //$count = mysqli_num_rows($result);
-                     $count = $result->rowCount();
-
-                    // If result matched $email, table row must be 1 row
+                    // If results matched $username, count must be 1
 
                     if($count > 0) {
 
@@ -75,11 +72,14 @@
 
                     }
                     else {
+											//Generating random code to store in database which will then be used while sending the verification link to the user
                        $code = random_int ( 10000 , 100000 );
+											
+											//Inserting the new record to the users database
                        $sql = "INSERT INTO `userdb`(`username`, `password`, `active`, `email`, `code`) VALUES ('$username','$password','0','$email','$code')";
                        $result = $pdo->query($sql);
 
-
+											//Loading the PHPMailer framework for sending emails
                       require 'PHPMailer/PHPMailerAutoload.php';
 
                       $mail = new PHPMailer;
@@ -88,18 +88,18 @@
                       $mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP servers
                       $mail->SMTPAuth = true;                     // Enable SMTP authentication
                       $mail->Username = 'nidgtest@gmail.com';          // SMTP username
-                      $mail->Password = 'hunan12%%'; // SMTP password
+                      $mail->Password = 'qmayvhyqykbgdlic'; // SMTP password
                       $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
                       $mail->Port = 587;                          // TCP port to connect to
 
                       $mail->setFrom('nidgtest@gmail.com', 'Employee Data Management');
                       $mail->addReplyTo('nidgtest@gmail.com', 'Employee Data Management');
-                      $mail->addAddress('nidhin.george.2018@mumail.ie');   // Add a recipient
-                      //$mail->addCC('cc@example.com');
+                      $mail->addAddress($email);   // Add a recipient
                       $mail->addBCC('nidgtest@gmail.com');
 
                       $mail->isHTML(true);  // Set email format to HTML
 
+											//Creating the html email body content.
                       $bodyContent = '<h1>Account Creation</h1>';
                       $bodyContent .= '<p>Click on the below link to activate your account: </p>';
                       $bodyContent .= '<a href=http://'.$urladdr.'/verifyuser.php?username='.$username.'&code='.$code.'> Verify Email </a>';
@@ -108,6 +108,7 @@
                       $mail->Subject = 'Verify Email';
                       $mail->Body    = $bodyContent;
 
+											//Sending the verification mail and checking for any errors
                       if(!$mail->send()) {
 
                           error_log('Mailer Error: ' . $mail->ErrorInfo, 0);
@@ -121,10 +122,12 @@
                 }
              }
             else {
+							//Email address is having an invalid domain
               $info = "Email address is having an invalid domain!";
             }
         }
         else {
+					//THe entered email address does not conform to email address pattern
           $info = "Invalid email address!";
         }
        //Close the connection

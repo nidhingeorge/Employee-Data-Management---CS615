@@ -1,54 +1,4 @@
-<?php
-// Check existence of id parameter before processing further
-if(isset($_GET["empid"]) && !empty(trim($_GET["empid"]))){
-    // Include config file
-    require_once 'config.php';
-    
-    // Prepare a select statement
-    $sql = "SELECT * FROM employees WHERE empid = :empid";
-    
-    if($stmt = $pdo->prepare($sql)){
-        // Bind variables to the prepared statement as parameters
-        $stmt->bindParam(':empid', $param_empid);
-        
-        // Set parameters
-        $param_empid = trim($_GET["empid"]);
-        
-        // Attempt to execute the prepared statement
-        if($stmt->execute()){
-            if($stmt->rowCount() == 1){
-                /* Fetch result row as an associative array. Since the result set
-                contains only one row, we don't need to use while loop */
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                
-                // Retrieve individual field value
-                $name = $row["name"];
-                $address = $row["address"];
-                $salary = $row["salary"];
-                $empid = $row["empid"];
-                $role = $row["role"];
-            } else{
-                // URL doesn't contain valid id parameter. Redirect to error page
-                header("location: error.php");
-                exit();
-            }
-            
-        } else{
-            echo "Oops! Something went wrong. Please try again later.";
-        }
-    }
-     
-    // Close statement
-    unset($stmt);
-    
-    // Close connection
-    unset($pdo);
-} else{
-    // URL doesn't contain id parameter. Redirect to error page
-    header("location: error.php");
-    exit();
-}
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,6 +50,62 @@ if(isset($_GET["empid"]) && !empty(trim($_GET["empid"]))){
                 
             </nav>
         <div class="container-fluid">
+          
+          
+<?php 
+          //Including the config and user info
+          include('welcome.php'); ?>
+<?php
+// Check existence of id parameter before processing further
+if(isset($_GET["empid"]) && !empty(trim($_GET["empid"]))){
+    
+    // Prepare a select statement
+    $sql = "SELECT * FROM employees WHERE empid = :empid";
+    
+    if($stmt = $pdo->prepare($sql)){
+        // Bind variables to the prepared statement as parameters
+        $stmt->bindParam(':empid', $param_empid);
+        
+        // Set parameters
+        $param_empid = trim($_GET["empid"]);
+        
+        // Attempt to execute the prepared statement
+        if($stmt->execute()){
+            if($stmt->rowCount() == 1){
+                /* Fetch result row as an associative array. Since the result set
+                contains only one row, we don't need to use while loop */
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                
+                // Retrieve individual field value
+                $name = $row["name"];
+                $address = $row["address"];
+                $salary = $row["salary"];
+                $empid = $row["empid"];
+                $role = $row["role"];
+            } else{
+                // URL doesn't contain valid id parameter. Redirect to error page
+                header("location: error.php");
+                exit();
+            }
+            
+        } else{
+            echo "Oops! Something went wrong. Please try again later.";
+        }
+    }
+     
+    // Close statement
+    unset($stmt);
+    
+    // Close connection
+    unset($pdo);
+} else{
+    // URL doesn't contain id parameter. Redirect to error page
+    header("location: error.php");
+    exit();
+}
+?>
+          
+         
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">

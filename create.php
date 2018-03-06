@@ -1,6 +1,62 @@
+
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Record</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+    <style type="text/css">
+    
+      .container-fluid{
+        margin-left:0;
+        width:100%;
+        height:100%
+      }
+      .wrapper{
+        height:100%;
+      }
+    html { height: 100%; } body { min-height: 100%; height:100vh;}
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+      <!-- Sidebar Holder -->
+           <nav id="sidebar">
+                <div class="sidebar-header">
+                  <a href='index.php'> <h3>Employee Data Management</h3></a>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <li>
+                        <a href="index.php">Dashboard</a>
+                        
+                    </li>    
+                   <li class="active">
+                        <a href="create.php">Add Employee</a>
+                        
+                    </li>
+                    <li>
+                        <a href="dataupload.php">Data Upload</a>
+                    </li>
+                  
+                </ul>
+
+                
+            </nav>
+        <div class="container-fluid">
+         
+
+<?php 
+          //Including the config and user info
+          include('welcome.php'); ?>
+
 <?php
-// Include config file
-require_once 'config.php';
+
+// PHP file used to create new record in employee database
  
 // Define variables and initialize with empty values
 $name = $address = $salary = $empid = $role = "";
@@ -102,55 +158,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     unset($pdo);
 }
 ?>
- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create Record</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-    <style type="text/css">
-    
-      .container-fluid{
-        margin-left:0;
-        width:100%;
-        height:100%
-      }
-      .wrapper{
-        height:100%;
-      }
-    html { height: 100%; } body { min-height: 100%; height:100vh;}
-    </style>
-</head>
-<body>
-    <div class="wrapper">
-      <!-- Sidebar Holder -->
-           <nav id="sidebar">
-                <div class="sidebar-header">
-                  <a href='index.php'> <h3>Employee Data Management</h3></a>
-                </div>
-
-                <ul class="list-unstyled components">
-                    <li>
-                        <a href="index.php">Dashboard</a>
-                        
-                    </li>    
-                   <li class="active">
-                        <a href="create.php">Add Employee</a>
-                        
-                    </li>
-                    <li>
-                        <a href="dataupload.php">Data Upload</a>
-                    </li>
-                  
-                </ul>
-
-                
-            </nav>
-        <div class="container-fluid">
+          
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">

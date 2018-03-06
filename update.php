@@ -1,6 +1,61 @@
+
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Record</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+   <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+    <style type="text/css">
+    
+      .container-fluid{
+        margin-left:0;
+        width:100%;
+        height:100%
+      }
+      .wrapper{
+        height:100%;
+      }
+    html { height: 100%; } body { min-height: 100%; height:100vh;}
+    </style>
+    <style type="text/css">
+    
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+       <!-- Sidebar Holder -->
+           <nav id="sidebar">
+                <div class="sidebar-header">
+                    <a href='index.php'> <h3>Employee Data Management</h3></a>
+                </div>
+
+                <ul class="list-unstyled components">
+                    <li class="active">
+                        <a href="index.php">Dashboard</a>
+                        
+                    </li>    
+                   <li>
+                        <a href="create.php">Add Employee</a>
+                        
+                    </li>
+                    <li>
+                        <a href="dataupload.php">Data Upload</a>
+                    </li>
+                  
+                </ul>
+
+                
+            </nav>
+        <div class="container-fluid">
+          
+<?php 
+          //Including config and user info
+          include('welcome.php'); ?>
 <?php
-// Include config file
-require_once 'config.php';
  
 // Define variables and initialize with empty values
 $name = $address = $salary = $empid = $role = "";
@@ -94,10 +149,12 @@ if(isset($_POST["empid"]) && !empty($_POST["empid"])){
     
     // Close connection
     unset($pdo);
-} else{
-    // Check existence of id parameter before processing further
+} 
+          
+else{
+    // Check existence of emp id parameter before processing further
     if(isset($_GET["empid"]) && !empty(trim($_GET["empid"]))){
-        // Get URL parameter
+        // Get empid parameter from the GET request
         $empid =  trim($_GET["empid"]);
         
         // Prepare a select statement
@@ -144,58 +201,7 @@ if(isset($_POST["empid"]) && !empty($_POST["empid"])){
     }
 }
 ?>
- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Update Record</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-   <link rel="stylesheet" href="style.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-    <style type="text/css">
-    
-      .container-fluid{
-        margin-left:0;
-        width:100%;
-        height:100%
-      }
-      .wrapper{
-        height:100%;
-      }
-    html { height: 100%; } body { min-height: 100%; height:100vh;}
-    </style>
-    <style type="text/css">
-    
-    </style>
-</head>
-<body>
-    <div class="wrapper">
-       <!-- Sidebar Holder -->
-           <nav id="sidebar">
-                <div class="sidebar-header">
-                    <a href='index.php'> <h3>Employee Data Management</h3></a>
-                </div>
-
-                <ul class="list-unstyled components">
-                    <li class="active">
-                        <a href="index.php">Dashboard</a>
-                        
-                    </li>    
-                   <li>
-                        <a href="create.php">Add Employee</a>
-                        
-                    </li>
-                    <li>
-                        <a href="dataupload.php">Data Upload</a>
-                    </li>
-                  
-                </ul>
-
-                
-            </nav>
-        <div class="container-fluid">
+          
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">

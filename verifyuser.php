@@ -1,34 +1,33 @@
 <?php
+//PHP file to handle verify user request
+//Including config and apppaths
    include("config.php");
    include("apppaths.php");
    $info= "";
+
+//Code to fetch parameters from GET request
    if($_SERVER["REQUEST_METHOD"] == "GET") {
       // username and password sent from form 
      
-		
+		//Setting username and code 
       $username = $_GET['username'];
       $code = $_GET['code']; 
 
       
       // Validate input fields
     if(empty($username) ||  empty($code)){
+			//Invalid request URL
         $info = 'Invalid Request! ';     
     } 
      else{           
-               // Dmain is valid
-        
+               
+        			//SQL query to search for new user account in deactivated state
               $sql = "SELECT email FROM userdb WHERE username = '$username' and code= '$code' and active='0'";
-              /*$result = mysqli_query($pdo,$sql);
-              $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-              $active = $row['active'];*/
-
               $result = $pdo->query($sql);
 
-
-              //$count = mysqli_num_rows($result);
                $count = $result->rowCount();
 
-              // If result matched $email, table row must be 1 row
+              // If result matched $email, $code and active=0, count must be 1
 
               if($count == 0) {
 
@@ -37,12 +36,14 @@
                 // Close statement
                 unset($sql);
 
-              }else {
+              }else if($count == 1){
                 
+								//SQL query to activate the user account
                  $sql = "UPDATE `userdb` SET `active`='1' WHERE username='$username'";
                
                  $result = $pdo->query($sql);   
                 
+								//Updating the info message
                  $info = "User account activated! Click here to <a href='login.php'> Login </a>.";
                 // Close statement
                 unset($sql);
