@@ -48,7 +48,7 @@
 								{
                    	//Generating random code to include in the reset password link and also insert in the db
                        $code = random_int ( 10000 , 100000 );
-                       $sql = "UPDATE `userdb` SET code='$code' WHERE email='$email'";
+                       $sql = "UPDATE `userdb` SET code='$code', resetpwd='1' WHERE email='$email'";
                        $result = $pdo->query($sql);
 
 										//Adding PHPMailer framework fr sending emails
@@ -73,9 +73,9 @@
                       $mail->isHTML(true);  // Set email format to HTML
 
 									//Constructing the html email body content
-                      $bodyContent = '<h1>Account Creation</h1>';
+                      $bodyContent = '<h1>Reset Password</h1>';
                       $bodyContent .= '<p>Click on the below link to reset our password: </p>';
-                      $bodyContent .= '<a href=http://'.$urladdr.'/newpassword.php?email='.$email.'&code='.$code.'> Verify Email </a>';
+                      $bodyContent .= '<a href=http://'.$urladdr.'/newpassword.php?email='.$email.'&code='.$code.'> Reset Password </a>';
                       //echo $urladdr.'/verifyuser.php?username='.$username.'&code='.$code;
 
                       $mail->Subject = 'Employe Data Management - Reset Password';

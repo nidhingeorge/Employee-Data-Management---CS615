@@ -149,7 +149,8 @@ if(isset($_POST["empid"]) && !empty($_POST["empid"])){
     
     // Close connection
     unset($pdo);
-} 
+}
+  
           
 else{
     // Check existence of emp id parameter before processing further

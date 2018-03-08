@@ -88,7 +88,7 @@
 
 
 <?php
-
+$info = '';
 $errorDetected = false;
 //Checking whether the page load is part of submit
 if ( isset($_POST["submit"]) ) {
@@ -184,8 +184,10 @@ if ( isset($_POST["submit"]) ) {
                 $mail->isSMTP();                            // Set mailer to use SMTP
                 $mail->Host = 'smtp.gmail.com';             // Specify main and backup SMTP servers
                 $mail->SMTPAuth = true;                     // Enable SMTP authentication
+                                
                 $mail->Username = 'nidgtest@gmail.com';          // SMTP username
-                $mail->Password = 'qmayvhyqykbgdlic'; // SMTP password
+                $mail->Password = 'qmayvhyqykbgdlic'; // SMTP password                  
+                  
                 $mail->SMTPSecure = 'tls';                  // Enable TLS encryption, `ssl` also accepted
                 $mail->Port = 587;                          // TCP port to connect to
 

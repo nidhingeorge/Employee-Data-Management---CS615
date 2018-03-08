@@ -5,9 +5,9 @@
 
 // Database credentials. Assuming you are running MySQL server with default setting (user 'root' with no password) 
 define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'user1');
+define('DB_USERNAME', 'crudedb');
 define('DB_PASSWORD', 'test3434');
-define('DB_NAME', 'user1');
+define('DB_NAME', 'crudedb');
  
 // Attempt to connect to MySQL database 
 try{

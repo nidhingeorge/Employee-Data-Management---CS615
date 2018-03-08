@@ -46,7 +46,7 @@
       else {
         			//Query to search for user in db
         
-              $sql = "SELECT email FROM userdb WHERE email = '$email' and code= '$code'";
+              $sql = "SELECT email FROM userdb WHERE email = '$email' and code= '$code' and resetpwd='1'";
               $result = $pdo->query($sql);
               $count = $result->rowCount();
 
@@ -61,7 +61,7 @@
 
               }else if($count == 1){
                 //User account exists in db
-                 $sql = "UPDATE `userdb` SET `password`='$password' WHERE email='$email'";
+                 $sql = "UPDATE `userdb` SET `password`='$password', resetpwd='0' WHERE email='$email'";
                
 								//Updating the password
                  $result = $pdo->query($sql);   
