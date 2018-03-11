@@ -3,7 +3,7 @@
 <?php
 
 
-// Database credentials. Assuming you are running MySQL server with default setting (user 'root' with no password) 
+// Database credentials. Assuming you are running MySQL server with default setting
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'crudedb');
 define('DB_PASSWORD', 'test3434');

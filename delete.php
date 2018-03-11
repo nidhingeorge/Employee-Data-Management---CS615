@@ -26,23 +26,27 @@ if(isset($_POST["empid"]) && !empty($_POST["empid"])){
     
     // Prepare a select statement
     $sql = "DELETE FROM employees WHERE empid = :empid";
-    
-    if($stmt = $pdo->prepare($sql)){
-        // Bind variables to the prepared statement as parameters
-        $stmt->bindParam(':empid', $param_empid);
-        
-        // Set parameters
-        $param_empid = trim($_POST["empid"]);
-        
-        // Attempt to execute the prepared statement
-        if($stmt->execute()){
-            // Records deleted successfully. Redirect to landing page
-            header("location: index.php");
-            exit();
-        } else{
-            echo "Oops! Something went wrong. Please try again later.";
+    try{
+        if($stmt = $pdo->prepare($sql)){
+            // Bind variables to the prepared statement as parameters
+            $stmt->bindParam(':empid', $param_empid);
+
+            // Set parameters
+            $param_empid = trim($_POST["empid"]);
+
+            // Attempt to execute the prepared statement
+            if($stmt->execute()){
+                // Records deleted successfully. Redirect to landing page
+                header("location: index.php");
+                exit();
+            } else{
+                echo "Oops! Something went wrong. Please try again later.";
+            }
         }
-    }
+      }
+      catch(PDOException $ex){
+        $errorDetected = true;
+      }
      
     // Close statement
     unset($stmt);
@@ -57,7 +61,8 @@ if(isset($_POST["empid"]) && !empty($_POST["empid"])){
         exit();
     }
 }
-?>          
+?>    
+          <!-- HTML content for the delete confirmation message -->
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">

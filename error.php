@@ -12,6 +12,7 @@
     </style>
 </head>
 <body>
+  <!-- HTML for the error message -->
     <div class="wrapper">
         <div class="container-fluid">
             <div class="row">

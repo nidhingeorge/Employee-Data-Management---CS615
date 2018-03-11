@@ -6,8 +6,10 @@
     <meta charset="UTF-8">
     <title>Create Record</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-  <link rel="stylesheet" href="style.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <link rel="stylesheet" href="resources/css/style.css">
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+     <!-- Bootstrap Js CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
     <style type="text/css">
     
@@ -56,7 +58,7 @@
 
 <?php
 
-// PHP file used to create new record in employee database
+// PHP used to create new record in employee database
  
 // Define variables and initialize with empty values
 $name = $address = $salary = $empid = $role = "";
@@ -128,9 +130,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_address = $address;
             $param_salary = $salary;
             $param_empid = $empid;
-            $param_role = $role;
-            
-        
+            $param_role = $role;     
 
 
 
@@ -158,7 +158,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     unset($pdo);
 }
 ?>
-          
+          <!--  HTML to show the input fields for creting a new record (with error checking) -->
             <div class="row">
                 <div class="col-md-12">
                     <div class="page-header">

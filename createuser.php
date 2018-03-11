@@ -4,13 +4,16 @@
  // Include the dependent php files
    include("config.php");
    include("apppaths.php");
+
+//Initialising te string variables
    $info= "";
+	 $submitComplete = false;
 
 	//Check if the http request is POST
    if($_SERVER["REQUEST_METHOD"] == "POST") {
-      // username and password sent from form 
-     
-		
+      
+		 // username and password sent from form 
+     		
       $username = $_POST['username'];
       $password = $_POST['password']; 
       $email = $_POST['email']; 
@@ -41,11 +44,9 @@
                 $sql = "SELECT email FROM userdb WHERE email = '$email'";
                 $result = $pdo->query($sql);
 
+                $count = $result->rowCount();
 
-                //$count = mysqli_num_rows($result);
-                 $count = $result->rowCount();
-
-                // If result matched $email, table row must be 1 row
+                // If result matched $email, table rows returned must be 1 row
 
                 if($count>0) {
 
@@ -73,7 +74,7 @@
                     }
                     else {
 											//Generating random code to store in database which will then be used while sending the verification link to the user
-                       $code = random_int ( 10000 , 100000 );
+                       $code = random_int ( 100000 , 900000 );
 											
 											//Inserting the new record to the users database
                        $sql = "INSERT INTO `userdb`(`username`, `password`, `active`, `email`, `code`) VALUES ('$username','$password','0','$email','$code')";
@@ -102,7 +103,9 @@
 											//Creating the html email body content.
                       $bodyContent = '<h1>Account Creation</h1>';
                       $bodyContent .= '<p>Click on the below link to activate your account: </p>';
-                      $bodyContent .= '<a href=http://'.$urladdr.'/verifyuser.php?username='.$username.'&code='.$code.'> Verify Email </a>';
+											
+											$bodyContent .= '<a href='.constant('URLADDR').'verifyuser.php?username='.$username.'&code='.$code.'> Verify Email </a>';
+                      //$bodyContent .= '<a href=http://'.$urladdr.'/verifyuser.php?username='.$username.'&code='.$code.'> Verify Email </a>';
                       //echo $urladdr.'/verifyuser.php?username='.$username.'&code='.$code;
 
                       $mail->Subject = 'Verify Email';
@@ -115,6 +118,7 @@
                       }   
                       else {
                         $info = "Please check your email for verification link.";
+												$submitComplete = true;
                       }
                   }
                   // Close statement
@@ -141,14 +145,17 @@
       <title>Create User</title>
       
 
-   <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<link rel="stylesheet" href="style.css">
+   <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+     <!-- Bootstrap Js CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+<link rel="stylesheet" href="resources/css/style.css">
 
 <style>
 
-body {
+body { 
+	/* Styling for the html body  */
     background: url("resources/bg.png") no-repeat center center fixed; 
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -156,7 +163,8 @@ body {
         background-size: cover;
 }
 
-.jumbotron {
+.jumbotron { 
+	/* Styling for the create user fields form including the icon  */
 	text-align: center;
 	width: 30rem;
 	border-radius: 0.5rem;
@@ -210,6 +218,7 @@ h2 {
 }
 
 .box {
+	/* Styling for the div containing the input fields */
 	position: absolute;
 	bottom: 0;
 	left: 0;
@@ -230,21 +239,50 @@ h2 {
     <a href='login.php'> Employee <br>Data<br> Management </a>
 </div>         
 
+		 <?php
+		 
+		 
+//Check if the http request is POST
+   if($_SERVER["REQUEST_METHOD"] == "POST") {
+      // username and password sent from form 
+     
+		 // Validate input fields
+      if(empty($username) || empty($password) || empty($email)){
+          $info = 'Please enter all values.';   
+					
+      } 		
+      
+		 //Check if user creation submit process as complete or not
+      if($submitComplete){
+				//Show the info message
+			 echo '<div style = "font-size:20px; color:#ffffff; margin-top:10px; margin-left: 100px;">';
+       echo $info;
+       echo '</div>';
+			}
+						
+	}
+		 //Check if user creation submit process as complete or not
+		 if(!$submitComplete) {
+			 //Render the data entry form
+				echo '<div class="jumbotron">';
+				echo '<div class="container">';
+				echo '<span class="glyphicon glyphicon-user"></span>';
+				echo '<h2>Create User</h2>';
+				echo '<div class="box">';
+				echo '<form action = "" method = "post">';
+				echo '<input type="text" placeholder="email (gmail or mumail id)" name = "email">';
+				echo '<input type="text" placeholder="username" name = "username">';
+				echo '<input type="password" placeholder="password" name = "password">';
+				echo '<button class="btn btn-default full-width" type="submit"><span class="glyphicon glyphicon-ok"></span></button>';
+				echo '</form>';
+				echo '<div style = "font-size:11px; color:#cc0000; margin-top:10px">';
+				echo $info; 
+				echo '</div></div>';
+				echo '</div>';
+				echo '</div>';
+			}
+ 
 
-<div class="jumbotron">
-  <div class="container">
-    <span class="glyphicon glyphicon-user"></span>
-    <h2>Create User</h2>
-    <div class="box">
-			<form action = "" method = "post">
-        <input type="text" placeholder="email (gmail or mumail id)" name = "email">
-        <input type="text" placeholder="username" name = "username">
-	    <input type="password" placeholder="password" name = "password">
-	    <button class="btn btn-default full-width" type="submit"><span class="glyphicon glyphicon-ok"></span></button>
-				</form>
-      <div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $info; ?></div>
-    </div>
-  </div>
-</div>
+?>
    </body>
 </html>

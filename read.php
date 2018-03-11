@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <title>View Record</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <link rel="stylesheet" href="style.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="resources/css/style.css">
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+     <!-- Bootstrap Js CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
     <style type="text/css">
     
@@ -17,6 +19,9 @@
       }
       .wrapper{
         height:100%;
+      }
+      p{
+        color:#000;
       }
     html { height: 100%; } body { min-height: 100%; height:100vh;}
     </style>
@@ -104,7 +109,7 @@ if(isset($_GET["empid"]) && !empty(trim($_GET["empid"]))){
     exit();
 }
 ?>
-          
+   <!-- HTML Content to show the employee record details -->       
          
             <div class="row">
                 <div class="col-md-12">

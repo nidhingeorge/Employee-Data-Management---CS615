@@ -12,6 +12,7 @@ for ($i = count($tempPath2); $i < count($tempPath1); $i++)
 
 $urladdr = $_SERVER['HTTP_HOST'] . implode('/', $tempPath3);
 
+/* Defining the URLADDR constant */
 if ($urladdr{strlen($urladdr) - 1}== '/')
     define('URLADDR', 'http://' . $urladdr);
 else

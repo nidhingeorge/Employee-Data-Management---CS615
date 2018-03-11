@@ -47,7 +47,7 @@
                 if($count == 1) 
 								{
                    	//Generating random code to include in the reset password link and also insert in the db
-                       $code = random_int ( 10000 , 100000 );
+                       $code = random_int ( 100000 , 900000 );
                        $sql = "UPDATE `userdb` SET code='$code', resetpwd='1' WHERE email='$email'";
                        $result = $pdo->query($sql);
 
@@ -75,7 +75,7 @@
 									//Constructing the html email body content
                       $bodyContent = '<h1>Reset Password</h1>';
                       $bodyContent .= '<p>Click on the below link to reset our password: </p>';
-                      $bodyContent .= '<a href=http://'.$urladdr.'/newpassword.php?email='.$email.'&code='.$code.'> Reset Password </a>';
+                      $bodyContent .= '<a href='.constant('URLADDR').'newpassword.php?email='.$email.'&code='.$code.'> Reset Password </a>';
                       //echo $urladdr.'/verifyuser.php?username='.$username.'&code='.$code;
 
                       $mail->Subject = 'Employe Data Management - Reset Password';
@@ -115,11 +115,12 @@
    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="resources/css/style.css">
 
 <style>
 
 body {
+	/* Background image */
     background: url("resources/bg.png") no-repeat center center fixed; 
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -196,7 +197,7 @@ h2 {
    </head>
    
    <body bgcolor = "#FFFFFF">
-	
+	<!-- Application Name  -->
  <div class="sidebar-header" style="font-weight:bold; font-size:72; color:#ffffff;margin-top: 200px;margin-left: 100px;" width="250px">
     <a href='login.php'> Employee <br>Data<br> Management </a>
 </div>         

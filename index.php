@@ -6,9 +6,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Dashboard</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <!-- jQuery CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+     <!-- Bootstrap Js CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="resources/css/style.css">
     <style type="text/css"> 
       
       .container-fluid{
@@ -45,7 +47,7 @@
                         
                     </li>
                     <li>
-                        <a href="dataupload.php">Data Load</a>
+                        <a href="dataupload.php">Data Upload</a>
                     </li>
                   
                 </ul>
@@ -70,7 +72,7 @@
                     // Include config file
                     //require_once 'config.php';
                     
-             
+              try{
                     // Attempt select query execution
                     $sql = "SELECT * FROM employees";
                     if($result = $pdo->query($sql)){
@@ -119,6 +121,10 @@
                     } else{
                         echo "ERROR: Could not able to execute $sql. " . $mysqli->error;
                     }
+              }
+                  catch(PDOException $ex) {
+                    echo "Error while fetching records!";
+                  }
                     
                     // Close connection
                     unset($pdo);
@@ -127,10 +133,7 @@
             </div>        
         </div>
        </div>
-  <!-- jQuery CDN -->
-         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-         <!-- Bootstrap Js CDN -->
-         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 
          <script type="text/javascript">
              $(document).ready(function () {

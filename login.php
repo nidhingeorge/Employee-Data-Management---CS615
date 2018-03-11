@@ -47,16 +47,19 @@
       <title>Employee Data Management  - Login</title>
       
 
-   <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-		 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+   <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <!-- jQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+     <!-- Bootstrap Js CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
 
 
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="resources/css/style.css">
 <style>
 
 body {
+	/*  Background image  */
     background: url("resources/bg.png") no-repeat center center fixed; 
         -webkit-background-size: cover;
         -moz-background-size: cover;
@@ -118,6 +121,7 @@ h2 {
 }
 	
 .full-width:hover {
+	/* CSS to style the button on mouse hover */
 	background-color: #7ca5d4;
 	width: 100%;
 	-webkit-border-top-right-radius: 0;
@@ -145,11 +149,11 @@ h2 {
    
    <body bgcolor = "#FFFFFF">
 	
-      
+ <!-- Application Name -->     
  <div class="sidebar-header" style="font-weight:bold; font-size:72; color:#ffffff;margin-top: 200px;margin-left: 100px;" width="250px">
 		Employee <br>Data<br> Management
 </div>
-
+<!-- Login form -->
 <div class="jumbotron">
   <div class="container">
     <span class="glyphicon glyphicon-user"></span>
@@ -161,9 +165,9 @@ h2 {
 	    <button class="btn btn-default full-width" type="submit"><span class="glyphicon glyphicon-ok"></span></button>
 				</form>
 			
-			
-		<a href="createuser.php" class="btn btn-default full-width" style="background-color: #71c5a5; font-weight:bold;" >Create New User</a>
-		<a href="resetpassword.php" class="btn btn-default full-width" style="background-color: #a28b64; font-weight:bold;" >Reset Password</a>
+	<!-- Buttons with custom styling -->		
+		<a href="createuser.php" class="btn btn-default full-width" style="background-color: #71c5a5; color:#fff;" >Create New User</a>
+		<a href="resetpassword.php" class="btn btn-default full-width" style="background-color: #a28b64; color:#fff;" >Reset Password</a>
 			<div style = "font-size:11px; color:#cc0000; margin-top:10px"><?php echo $error; ?></div>
     </div>
   </div>

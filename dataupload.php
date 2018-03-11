@@ -6,9 +6,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Data Upload</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <!-- jQuery CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+     <!-- Bootstrap Js CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="resources/css/style.css">
     <style type="text/css"> 
      
       .container-fluid{
@@ -63,7 +65,7 @@
                     </div>
      <table width="600">
 <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
-
+<!-- Link for the data upload template -->
 <tr>
   Load data from CSV file. <br><br>Download the Template here : <a href="/resources/dataloadtemplate.csv" style="color:#425a75" download> datauploadtemplate.csv</a><br><br>
   </tr>
@@ -71,6 +73,7 @@
 <tr>
 <td width="20%">Select file</td>
 <td width="80%">
+  <!-- File Upload field -->
   <label class="btn btn-default btn-file">
     <input type="file"  name="file" id="file" accept=".csv" >
     </td>
@@ -129,9 +132,10 @@ if ( isset($_POST["submit"]) ) {
                         // If result matched empid, count must be 1
 
                         if($count == 1) {
+                            //Update the record
                             //Updating the existing record with new data
                             $sql = "UPDATE employees SET name=:name, address=:address, salary=:salary, role=:role WHERE empid=:empid";
- 
+                          try{
                             if($stmt = $pdo->prepare($sql)){
                                 // Bind variables to the prepared statement as parameters
                                 $stmt->bindParam(':empid', $param_empid);  
@@ -143,11 +147,12 @@ if ( isset($_POST["submit"]) ) {
 
                                 // Set parameters
                                 $param_name = $row[1];
-                                $param_address = $row[2];
+                                $param_address = $row[3];
                                 $param_salary = $row[4];
                                 $param_empid = $row[0];
-                                $param_role = $row[3];
+                                $param_role = $row[2];
 
+                             
                                 // Attempt to execute the prepared statement
                                 if($stmt->execute()){
                                     // Records updated successfully. Redirect to landing page
@@ -157,20 +162,30 @@ if ( isset($_POST["submit"]) ) {
                                     //$info = "Error occurred during data load. Please try again later.";
                                     $errorDetected = true;
                                 }
+                              
+                            }
+                            }
+                              catch(PDOException $ex){
+                                $errorDetected = true;
                             }
 
                             // Close statement
                             unset($stmt);
 
                       
-                      //If yes, update the record
+                      
                       
                       }
 
                       else {
                             //Else, create a new record                             
                              $sql = "INSERT INTO `employees`(`empid`, `name`, `role`, `address`, `salary`) VALUES ('$row[0]', '$row[1]', '$row[2]', '$row[3]', '$row[4]')";
+                        try{
                              $result = $pdo->query($sql);                    
+                        }
+                        catch(PDOException $ex) {
+                          $errorDetected = true;
+                        }
                            
                       }
                     }
